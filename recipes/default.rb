@@ -16,7 +16,9 @@ register_member("metering-api", d)
 
 set_rabbit_servers "metering"
 set_database_servers "metering"
-set_service_endpoint_ip "metering-api"
+set_service_endpoint "identity-api"
+set_service_endpoint "image-api"
+set_service_endpoint "metering-api"
 
 include_recipe "openstack-common"
 include_recipe "openstack-common::logging"
