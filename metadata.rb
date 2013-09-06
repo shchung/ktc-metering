@@ -10,10 +10,6 @@ version          '0.1.0'
   supports os
 end
 
-%w{
-  ktc-utils
-  openstack-common
-  openstack-metering
-}.each do |dep|
-  depends dep
-end
+depends "ktc-utils", "~> 0.2.1"
+depends "openstack-common", "~> 0.4.3"
+depends "openstack-metering", "~> 7.0.0"
