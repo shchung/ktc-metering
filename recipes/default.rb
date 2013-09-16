@@ -7,21 +7,23 @@
 # All rights reserved - Do Not Redistribute
 #
 
-class Chef::Recipe
-  include KTCUtils
-end
+include_recipe "services"
+include_recipe "ktc-utils"
 
-d = get_openstack_service_template(get_interface_address("management"), "8777")
-register_member("metering-api", d)
+ip = KTC::Network.address "management"
 
-set_rabbit_servers "metering"
-set_database_servers "metering"
-set_service_endpoint "identity-api"
-set_service_endpoint "image-api"
-set_service_endpoint "metering-api"
+Services::Connection.new run_context: run_context
+metering_api = Services::Member.new node.default.fqdn,
+  service: "metering-api",
+  port: 8777,
+  proto: "tcp",
+  ip: ip
+
+metering_api.save
+
+KTC::Attributes.set
 
 include_recipe "openstack-common"
 include_recipe "openstack-common::logging"
 include_recipe "openstack-metering::api"
 include_recipe "openstack-metering::identity_registration"
-
