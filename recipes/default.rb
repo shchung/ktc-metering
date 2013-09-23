@@ -24,4 +24,6 @@ include_recipe "openstack-common"
 include_recipe "openstack-common::logging"
 include_recipe "openstack-metering::api"
 include_recipe "openstack-metering::identity_registration"
+include_recipe "openstack-metering::agent-central"
+include_recipe "openstack-metering::collector"
 
